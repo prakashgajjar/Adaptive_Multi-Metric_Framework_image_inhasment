@@ -1,0 +1,3 @@
+Enhancement Method,Times Best,Total Images,Win Percentage
+histogram_equalization,1,2,50.0%
+clahe,1,2,50.0%
