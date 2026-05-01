@@ -22,7 +22,9 @@ from enhancement import (
     apply_histogram_equalization,
     apply_clahe,
     apply_gamma_correction,
-    apply_bilateral_filter
+    apply_bilateral_filter,
+    apply_unsharp_masking,
+    apply_hybrid_enhancement
 )
 
 # Import metrics
@@ -96,7 +98,9 @@ class AdaptiveImageEnhancement:
             'histogram_equalization': apply_histogram_equalization,
             'clahe': apply_clahe,
             'gamma_correction': apply_gamma_correction,
-            'bilateral_filter': apply_bilateral_filter
+            'bilateral_filter': apply_bilateral_filter,
+            'unsharp_masking': apply_unsharp_masking,
+            'hybrid_enhancement': apply_hybrid_enhancement
         }
         
         # Metric functions mapping

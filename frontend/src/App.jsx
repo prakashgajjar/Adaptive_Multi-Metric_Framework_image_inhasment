@@ -71,6 +71,15 @@ function App() {
     }
   };
 
+  const handleDownload = (base64Data, filename) => {
+    const link = document.createElement('a');
+    link.href = base64Data;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="container">
       <header className="app-header">
@@ -130,6 +139,13 @@ function App() {
             <div className="image-card">
               <div className="image-header">
                 <span className="image-title">Original</span>
+                <button 
+                  className="download-btn" 
+                  onClick={() => handleDownload(results.original_image, 'original_image.png')}
+                  title="Download Original"
+                >
+                  <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                </button>
               </div>
               <div className="image-wrapper">
                 <img src={results.original_image} alt="Original" />
@@ -138,8 +154,17 @@ function App() {
 
             <div className="image-card" style={{ borderColor: 'var(--color-black)' }}>
               <div className="image-header">
-                <span className="image-title">Best Enhancement</span>
-                <span className="badge">{results.best_method.replace(/_/g, ' ')}</span>
+                <div>
+                  <span className="image-title" style={{marginRight: '10px'}}>Best Enhancement</span>
+                  <span className="badge">{results.best_method.replace(/_/g, ' ')}</span>
+                </div>
+                <button 
+                  className="download-btn primary" 
+                  onClick={() => handleDownload(results.best_image, `best_${results.best_method}.png`)}
+                  title="Download Best Result"
+                >
+                  <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                </button>
               </div>
               <div className="image-wrapper">
                 <img src={results.best_image} alt="Best Enhancement" />
@@ -180,7 +205,16 @@ function App() {
               {Object.entries(results.enhanced_images).map(([method, b64img]) => (
                 <div key={method} className="gallery-item">
                   <img src={b64img} alt={method} className="gallery-image" />
-                  <div className="gallery-label">{method.replace(/_/g, ' ')}</div>
+                  <div className="gallery-footer">
+                    <div className="gallery-label">{method.replace(/_/g, ' ')}</div>
+                    <button 
+                      className="download-btn small" 
+                      onClick={() => handleDownload(b64img, `${method}.png`)}
+                      title={`Download ${method}`}
+                    >
+                      <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
